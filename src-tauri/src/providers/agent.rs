@@ -1,4 +1,5 @@
-//! Estado de los agentes de código. Claude Code llega por HTTP local; Codex lo lee `codex.rs`.
+//! Estado de los agentes de código. Claude Code llega por HTTP local; Codex lo lee `codex.rs`
+//! y OpenCode se consulta por su API HTTP local en `opencode.rs`.
 //!
 //! Claude Code: estado recibido por HTTP local (sin credenciales, sin sondeo).
 //!
@@ -68,7 +69,7 @@ pub struct Limit {
 #[serde(rename_all = "camelCase")]
 pub struct AgentSession {
     pub id: String,
-    /// Tipo de agente: "claude", "codex" o "local". Decide color e icono.
+    /// Tipo de agente: "claude", "codex", "opencode" o "local". Decide color e icono.
     pub kind: String,
     /// Nombre visible ("Claude Code", "Codex", "Bionic"...).
     pub agent: String,

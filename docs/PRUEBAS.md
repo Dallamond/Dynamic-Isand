@@ -64,6 +64,10 @@ Lo demás necesita tus manos, tus apps o tus ojos. Marca con `x` lo que funcione
 - [x] Píldora ampliada con Claude Code en el monitor principal (probado a mano).
 - [x] Pomodoro en columna propia junto a Claude Code (probado a mano).
 - [x] Codex aparece con estado, acción y límite (probado a mano).
+- [x] OpenCode aparece con estado, acción, modelo, contexto y coste (probado con la prueba en vivo).
+- [ ] OpenCode pide permiso y la isla muestra "Necesita tu permiso" (se responde en OpenCode).
+- [ ] Dos sesiones de OpenCode a la vez (una activa y otra en espera).
+- [ ] Con OpenCode cerrado no se consulta nada y un turno abierto deja de estar "trabajando" a los 10 min.
 - [x] Claude + IA local en dos filas a la vez (verificado con captura).
 - [ ] Los tres a la vez (Claude, Codex y Bionic trabajando).
 - [ ] Ajustes → Posición: fijar Temporizador en un monitor y Agentes IA en otro.

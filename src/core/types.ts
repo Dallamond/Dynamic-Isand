@@ -29,6 +29,7 @@ export interface Modules {
   media: boolean;
   agent: boolean;
   codex: boolean;
+  opencode: boolean;
   localAi: boolean;
   system: boolean;
   timer: boolean;

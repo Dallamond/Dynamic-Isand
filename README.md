@@ -4,7 +4,7 @@
 
 Una isla negra al estilo del iPhone para Windows 10 y 11. Vive arriba de la pantalla, se asoma al pasar
 el ratón y se expande con todo lo que importa en ese momento: la música que suena, lo que están haciendo
-tus agentes de IA (Claude Code, Codex, tu IA local), el pomodoro, el sistema y algunas utilidades rápidas.
+tus agentes de IA (Claude Code, Codex, OpenCode, tu IA local), el pomodoro, el sistema y algunas utilidades rápidas.
 
 Hecha con **Tauri 2 + Rust + React + TypeScript + Framer Motion**. Pensada para gastar lo mínimo:
 en reposo usa ~0 % de CPU y ~96 MB de RAM, y ningún módulo consulta nada si está apagado.
@@ -63,6 +63,7 @@ Varios agentes a la vez: con uno activo la píldora enseña su detalle; con vari
 | --- | --- | --- |
 | **Claude Code** | Hooks HTTP y statusLine a un puerto local (instalador incluido) | Trabajando / necesita tu permiso / listo, acción en curso, archivos tocados, tiempo del turno, contexto, límites de 5 h y semanal, coste |
 | **Codex** (app y CLI) | Lee sus archivos de sesión (`~/.codex/sessions`) | Trabajando / listo, acción en curso, archivos editados, tiempo, contexto, límite de uso de tu plan |
+| **OpenCode** | Su API HTTP local (descubre el puerto en `~/.local/state/opencode/service.json`) | Trabajando / necesita tu permiso / listo, acción en curso, archivos tocados, tiempo, contexto, coste |
 | **IA local** (Bionic, LM Studio, Ollama) | Su API HTTP en un endpoint configurable | Modelo cargado, "generando" (deducido del uso de la GPU), uso de GPU, contexto cargado |
 
 | Un agente (píldora ampliada) | Pidiendo permiso |
@@ -151,6 +152,13 @@ No hay que instalar nada: con el módulo **Codex** activado la isla lee la sesi�
 `~/.codex/sessions` (o de `%CODEX_HOME%`). Codex no deja en esos archivos cuándo te pide permiso,
 así que para Codex no existe el aviso de "necesita tu permiso".
 
+### OpenCode
+No hay que instalar nada: con el módulo **OpenCode** activado la isla lee el registro que OpenCode
+publica en `~/.local/state/opencode/service.json` (`%USERPROFILE%\.local\state\opencode` en Windows)
+y se conecta a su API en `127.0.0.1` con autenticación Basic. El puerto es dinámico y se toma de ese
+archivo. La isla **solo observa**: cuando OpenCode pide un permiso lo avisa, pero el permiso se
+responde en OpenCode. Cada sesión abierta aparece como un agente más, también si hay varias a la vez.
+
 ### IA local (Bionic, LM Studio, Ollama)
 Activa **Ajustes → Módulos → IA local** y pon el endpoint del servidor:
 
@@ -166,9 +174,11 @@ Si juegas o renderizas con el modelo cargado, también lo verá como "generando"
 ## Privacidad
 
 - Todo es local: la isla no se conecta a internet.
-- No lee credenciales: ni `~/.claude`, ni `~/.codex/auth.json`, ni claves de API de servidores locales.
-- El único puerto que abre es `127.0.0.1:47823` (solo accesible desde tu propio equipo) para los hooks
-  de Claude Code.
+- No lee credenciales de tus proveedores de IA: ni `~/.claude`, ni `~/.codex/auth.json`, ni claves
+  de API de servidores locales. Para hablar con OpenCode usa la contraseña efímera que él mismo
+  publica en su archivo de servicio y solo la envía a `127.0.0.1`.
+- Abre un puerto local (`127.0.0.1:47823`) para los hooks de Claude Code y se conecta a la API local
+  de OpenCode en `127.0.0.1`. Nada de eso es accesible desde otros equipos.
 
 ## Consumo
 
@@ -228,7 +238,7 @@ src/                     Frontend (React + TypeScript)
 src-tauri/src/           Núcleo en Rust
   window/                Ventanas, monitores, hover (un hilo consulta el cursor cada 50 ms), pantalla completa
   providers/             Un proveedor por módulo: media (SMTC), audio (WASAPI), agent (Claude Code),
-                         codex, localai, system (sysinfo + NVML), timers, notes
+                         codex, opencode, localai, system (sysinfo + NVML), timers, notes
   settings.rs            Ajustes persistentes
 scripts/                 Instalador de hooks de Claude Code y statusLine
 docs/                    Hoja de ruta, mediciones, pruebas, referencias y capturas (docs/img)
@@ -241,10 +251,10 @@ consulta nada; la ventana nunca se oculta con `hide()`, se mueve fuera de pantal
 
 ## Hoja de ruta
 
-Hecho: la isla, música, Claude Code, sistema y utilidades, multimonitor, instalador, Codex, IA local,
-varios agentes a la vez y contenido fijo por monitor. Pendiente: aprobar permisos de Claude Code desde
-la isla, avisos configurables, letras sincronizadas (LRCLIB), Google Calendar y notificaciones de Windows.
-Ver [`docs/ROADMAP.md`](docs/ROADMAP.md).
+Hecho: la isla, música, Claude Code, sistema y utilidades, multimonitor, instalador, Codex, OpenCode,
+IA local, varios agentes a la vez y contenido fijo por monitor. Pendiente: aprobar permisos de Claude
+Code desde la isla, avisos configurables, letras sincronizadas (LRCLIB), Google Calendar y
+notificaciones de Windows. Ver [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Licencia
 

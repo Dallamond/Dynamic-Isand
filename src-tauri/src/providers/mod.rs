@@ -7,6 +7,7 @@ pub mod codex;
 pub mod localai;
 pub mod media;
 pub mod notes;
+pub mod opencode;
 pub mod system;
 pub mod timers;
 
@@ -17,5 +18,6 @@ pub fn apply(app: &AppHandle, s: &Settings) {
     media::set_enabled(app, s.modules.media);
     agent::set_enabled(app, s.modules.agent);
     codex::set_enabled(app, s.modules.codex);
+    opencode::set_enabled(app, s.modules.opencode);
     localai::set_enabled(app, s.modules.local_ai, localai::Config { endpoint: s.local_ai.endpoint.clone(), name: s.local_ai.name.clone() });
 }

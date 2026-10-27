@@ -1,6 +1,6 @@
-// Módulo de agentes (Claude Code, Codex e IA local): estado del turno en la píldora y detalle en el panel.
+// Módulo de agentes (Claude Code, Codex, OpenCode e IA local): estado del turno en la píldora y detalle en el panel.
 // Con varios agentes activos a la vez, la píldora alta enseña una fila por agente.
-import { AlertTriangle, Check, Cpu, FileCode2, Hand, Hexagon, Sparkle } from "lucide-react";
+import { AlertTriangle, Check, Cpu, FileCode2, Hand, Hexagon, Sparkle, SquareTerminal } from "lucide-react";
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { useActivity } from "../../core/activities";
@@ -8,7 +8,7 @@ import { useTauriEvent } from "../../core/ipc";
 import { createStore, useStore } from "../../core/store";
 
 type Status = "idle" | "working" | "waiting" | "done" | "error";
-type Kind = "claude" | "codex" | "local";
+type Kind = "claude" | "codex" | "opencode" | "local";
 
 interface Usage {
   model: string | null;
@@ -57,8 +57,8 @@ const ERROR_VISIBLE_MS = 30_000;
 /** Filas como máximo en la píldora alta. */
 const MAX_ROWS = 3;
 
-const COLOR: Record<Kind, string> = { claude: "#d97757", codex: "#8fb4ff", local: "#b48cff" };
-const ICON = { claude: Sparkle, codex: Hexagon, local: Cpu };
+const COLOR: Record<Kind, string> = { claude: "#d97757", codex: "#8fb4ff", opencode: "#2dd4bf", local: "#b48cff" };
+const ICON = { claude: Sparkle, codex: Hexagon, opencode: SquareTerminal, local: Cpu };
 const agentColor = (s: AgentSession) => COLOR[s.kind] ?? COLOR.claude;
 const shortName = (s: AgentSession) => (s.kind === "claude" ? "Claude" : s.agent);
 
@@ -338,7 +338,7 @@ export function AgentPanel() {
     return (
       <div className="agent-empty">
         <Sparkle size={26} color={COLOR.claude} fill={COLOR.claude} />
-        <p className="muted">Sin sesiones de Claude Code, Codex ni IA local. Al lanzar una, su estado aparecerá aquí.</p>
+        <p className="muted">Sin sesiones de Claude Code, Codex, OpenCode ni IA local. Al lanzar una, su estado aparecerá aquí.</p>
       </div>
     );
   }

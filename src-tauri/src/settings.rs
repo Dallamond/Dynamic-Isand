@@ -91,6 +91,8 @@ pub struct Modules {
     pub agent: bool,
     /// Codex (app de escritorio o CLI), leído de sus archivos de sesión.
     pub codex: bool,
+    /// OpenCode, por su API HTTP local.
+    pub opencode: bool,
     /// IA local (Bionic / LM Studio u Ollama) por su API.
     pub local_ai: bool,
     pub system: bool,
@@ -101,7 +103,7 @@ pub struct Modules {
 
 impl Default for Modules {
     fn default() -> Self {
-        Self { media: true, agent: true, codex: true, local_ai: true, system: true, timer: true, calc: true, notes: true }
+        Self { media: true, agent: true, codex: true, opencode: true, local_ai: true, system: true, timer: true, calc: true, notes: true }
     }
 }
 

@@ -87,6 +87,7 @@ export function SettingsApp() {
         <Toggle label="Música y audio" value={s.modules.media} onChange={(v) => mod("media", v)} />
         <Toggle label="Claude Code" value={s.modules.agent} onChange={(v) => mod("agent", v)} />
         <Toggle label="Codex" value={s.modules.codex} onChange={(v) => mod("codex", v)} />
+        <Toggle label="OpenCode" value={s.modules.opencode} onChange={(v) => mod("opencode", v)} />
         <Toggle label="IA local (Bionic, LM Studio, Ollama)" value={s.modules.localAi} onChange={(v) => mod("localAi", v)} />
         {s.modules.localAi && (
           <>

@@ -31,7 +31,7 @@ const settings: Settings = {
     expandDelayMs: scene === "peek" ? 600_000 : 450,
     collapseDelayMs: 350,
   },
-  modules: { media: true, agent: true, codex: true, localAi: true, system: true, timer: true, calc: true, notes: true },
+  modules: { media: true, agent: true, codex: true, opencode: true, localAi: true, system: true, timer: true, calc: true, notes: true },
   shortcuts: { toggleExpand: "Ctrl+Alt+I", nextMonitor: "Ctrl+Alt+M", toggleHidden: "Ctrl+Alt+H" },
   localAi: { endpoint: "http://127.0.0.1:1234", name: "Bionic" },
   autostart: true,
